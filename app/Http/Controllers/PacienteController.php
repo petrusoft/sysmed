@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class PacienteController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +21,8 @@ class PacienteController extends Controller
     public function index()
     {
         //
+        $pacientes = Paciente::paginate(10);
+        return view('paciente.index',compact('pacientes'));
     }
 
     /**
@@ -25,6 +33,7 @@ class PacienteController extends Controller
     public function create()
     {
         //
+        return view('paciente.create');
     }
 
     /**

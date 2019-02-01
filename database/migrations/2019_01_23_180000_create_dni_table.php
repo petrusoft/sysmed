@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDnisTable extends Migration
+class CreateDniTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateDnisTable extends Migration
      */
     public function up()
     {
-        Schema::create('dnis', function (Blueprint $table) {
+        Schema::create('dni', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
             $table->string('descripcion')->nullable();
@@ -33,6 +33,6 @@ class CreateDnisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dnis');
+        Schema::dropIfExists('dni');
     }
 }

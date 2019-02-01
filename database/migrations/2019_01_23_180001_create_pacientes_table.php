@@ -16,8 +16,8 @@ class CreatePacientesTable extends Migration
         Schema::create('pacientes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('codigo')->unique();
-            $table->integer('id_dni')->unsigned();
-            $table->foreign('id_dni')->references('id')->on('dnis');
+            $table->integer('dni_id')->unsigned();
+            $table->foreign('dni_id')->references('id')->on('dni');
             $table->string('numero')->unique();
             $table->string('nombre');
             $table->string('genero')->nullable();
