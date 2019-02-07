@@ -10,30 +10,38 @@
               <h3 class="box-title">Nuevo Paciente</h3>
             </div>
             <!-- /.box-header -->
-
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+                </ul>
+            </div><br />
+            @endif
             <!-- form start -->
-            <form role="form">
+            <form method="POST" action="{{ route('shares.store') }}" enctype="multipart/form-data role="form">
             @csrf
               <div class="box-body">
                 <div class="form-group">
                   <label for="codigo">Codigo</label>
-                  <input type="number" class="form-control" id="codigo" placeholder="Ingrese el codigo">
+                  <input type="number" class="form-control" name="codigo" placeholder="Ingrese el codigo">
                 </div>
                 <div class="form-group">
                   <label for="numero">Numero</label>
-                  <input type="number" class="form-control" id="numero" placeholder="Ingrese el numero de documento">
+                  <input type="number" class="form-control" name="numero" placeholder="Ingrese el numero de documento">
                 </div>
                 <div class="form-group">
                   <label for="nombre">Nombre</label>
-                  <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre">
+                  <input type="text" class="form-control" name="nombre" placeholder="Ingrese el nombre">
                 </div>
                 <div class="form-group">
                   <label for="telefono">Telefono</label>
-                  <input type="text" class="form-control" id="telefono" placeholder="Ingrese el telefono">
+                  <input type="text" class="form-control" name="telefono" placeholder="Ingrese el telefono">
                 </div>
                 <div lass="form-group">
                   <label for="imagen">Imagen</label>
-                  <input type="file" id="imagen">
+                  <input type="file" name="imagen">
                   <p class="help-block">Seleccione una imagen</p>
                 </div>
               </div>

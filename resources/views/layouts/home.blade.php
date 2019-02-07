@@ -12,7 +12,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  
+
   <title>{{ config('app.name', 'Laravel') }}</title>
 
   <link rel="stylesheet" href="{{ asset('adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
@@ -94,7 +94,7 @@ desired effect
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
               </li>
-            @endif 
+            @endif
 
             @else
               <!-- Menu Toggle Button -->
@@ -123,7 +123,7 @@ desired effect
                   </div>
                 </li>
               </ul>
-            </li>      
+            </li>
             @endguest
           </ul>
 
@@ -135,10 +135,10 @@ desired effect
 
     <!-- Left side column. contains the logo and sidebar -->
     <aside class="main-sidebar">
-      
+
       <!-- sidebar: style can be found in sidebar.less -->
       <section class="sidebar">
-      
+
         <!-- Sidebar user panel (optional) -->
         @guest
         @else
@@ -151,9 +151,9 @@ desired effect
               <!-- Status -->
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
-          </div>    
+          </div>
         @endguest
-        
+
 
         <!-- search form (Optional) -->
         <form action="#" method="get" class="sidebar-form">
@@ -170,7 +170,7 @@ desired effect
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header"><strong>MENU</strong></li>
           <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="{{ route('paciente.index') }}"><i class="fa fa-link"></i><span>Pacientes</span></a></li>
+        <li class="active"><a href="{{ route('pacientes.index') }}"><i class="fa fa-link"></i><span>Pacientes</span></a></li>
           <li><a href="#"><i class="fa fa-link"></i><span>Productos</span></a></li>
           <li class="treeview">
             <a href="#"><i class="fa fa-link"></i><span>Reportes</span>

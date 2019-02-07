@@ -20,9 +20,8 @@ class PacienteController extends Controller
      */
     public function index()
     {
-        //
         $pacientes = Paciente::paginate(10);
-        return view('paciente.index',compact('pacientes'));
+        return view('pacientes.index',compact('pacientes'));
     }
 
     /**
@@ -32,8 +31,7 @@ class PacienteController extends Controller
      */
     public function create()
     {
-        //
-        return view('paciente.create');
+        return view('pacientes.create');
     }
 
     /**
@@ -44,7 +42,27 @@ class PacienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'codigo' => 'required',
+            'dni_id' => 'required',
+            'numero' => 'required',
+            'nombre' => 'required',
+            'telefono' => 'required',
+            'imagen' => 'required|imagen',
+        ]);
+
+        // Paciente::create($request->all());
+
+        $paciente = new Paciente();
+        $paciente->codigo = $request->get('codigo');
+        $paciente->dni_id = $request->get('dni_id');
+        $paciente->numero = $request->get('numero');
+        $paciente->nombre = $request->get('nombre');
+        $paciente->telefono = $request->get('telefono');
+        $paciente->imagen = $request->file('imagen')->get;
+        $paciente->save();
+
+        return redirect()->route('pacientes.index')->with('success', 'Paciente agregado correctamente');
     }
 
     /**
@@ -55,7 +73,8 @@ class PacienteController extends Controller
      */
     public function show(Paciente $paciente)
     {
-        //
+        $exist = Paciente::findOrFail($paciente->id);
+        return view('pacientes.show',compact('paciente'));
     }
 
     /**
@@ -66,7 +85,8 @@ class PacienteController extends Controller
      */
     public function edit(Paciente $paciente)
     {
-        //
+        $exist = Paciente::findOrFail($paciente->id);
+        return view('pacientes.edit',compact('paciente'));
     }
 
     /**
@@ -78,7 +98,28 @@ class PacienteController extends Controller
      */
     public function update(Request $request, Paciente $paciente)
     {
-        //
+
+        $request->validate([
+            'codigo' => 'required',
+            'dni_id' => 'required',
+            'numero' => 'required',
+            'nombre' => 'required',
+            'telefono' => 'required',
+            'imagen' => 'required|imagen',
+        ]);
+
+        // $paciente->update($request->all());
+
+        $exist = Paciente::findOrFail($paciente->id);
+        $paciente->codigo = $request->get('codigo');
+        $paciente->dni_id = $request->get('dni_id');
+        $paciente->numero = $request->get('numero');
+        $paciente->nombre = $request->get('nombre');
+        $paciente->telefono = $request->get('telefono');
+        $paciente->imagen = $request->file('imagen')->get;
+        $paciente->save();
+
+        return redirect()->route('pacientes.index')->with('success', 'Paciente actualizado correctamente');
     }
 
     /**
@@ -89,6 +130,9 @@ class PacienteController extends Controller
      */
     public function destroy(Paciente $paciente)
     {
-        //
+        $exist = Paciente::findOrFail($paciente->id);
+        $paciente->delete();
+
+        return redirect()->route('pacientes.index')->with('success', 'Paciente eliminado correctamente');
     }
 }

@@ -19,8 +19,8 @@ class CreateDniTable extends Migration
             $table->string('descripcion')->nullable();
             $table->string('created_by');
             $table->string('updated_by');
-            $table->timestamps();
             $table->string('deleted_by');
+            $table->timestamps();
             $table->softDeletes();
             $table->timestamp('rowversion');
         });

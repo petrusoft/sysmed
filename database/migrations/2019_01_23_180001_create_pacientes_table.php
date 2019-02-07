@@ -17,7 +17,6 @@ class CreatePacientesTable extends Migration
             $table->increments('id');
             $table->string('codigo')->unique();
             $table->integer('dni_id')->unsigned();
-            $table->foreign('dni_id')->references('id')->on('dni');
             $table->string('numero')->unique();
             $table->string('nombre');
             $table->string('genero')->nullable();
@@ -37,17 +36,19 @@ class CreatePacientesTable extends Migration
             $table->string('ocupacion')->nullable();
             $table->string('religion')->nullable();
             $table->string('imagen')->nullable();
-            $table->string('web')->nullable();
+            $table->string('web_url')->nullable();
             $table->string('familiar_nombre')->nullable();
             $table->string('familiar_parentesco')->nullable();
             $table->string('familiar_telefono')->nullable();
             $table->string('observacion')->nullable();
             $table->string('created_by');
             $table->string('updated_by');
-            $table->timestamps();
             $table->string('deleted_by');
+            $table->timestamps();
             $table->softDeletes();
             $table->timestamp('rowversion');
+
+            $table->foreign('dni_id')->references('id')->on('dni');
         });
     }
 
