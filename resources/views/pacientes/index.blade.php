@@ -2,6 +2,21 @@
 @section('content') @auth
 <div class="row">
     <div class="col-xs-12">
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+        @endif
+        @if (Session::has('message'))
+        <div class="alert alert-info">
+            {{ Session::get('message') }}
+        </div>
+        @endif
+        @if(session()->get('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+        @endif
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">Pacientes</h3>
@@ -26,12 +41,6 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-
-                @if ($message = Session::get('success'))
-                <div class="alert alert-success">
-                    <p>{{ $message }}</p>
-                </div>
-                @endif
 
                 <table class="table table-hover table-striped table-bordered table-condensed">
                     <tr>
