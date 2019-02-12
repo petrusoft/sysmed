@@ -69,7 +69,7 @@ desired effect
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><i class="fa fa-user-md"></i></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>SYSMED</b></span>
+        <span class="logo-lg"><b>{{ config('app.name', 'Laravel') }}</b></span>
       </a>
 
       <!-- Header Navbar -->
@@ -196,7 +196,7 @@ desired effect
       <section class="content-header">
         <h1>
           Dashboard
-          <small>Home {{request()->server('COMPUTERNAME')}}</small>
+          <small>Home {{ gethostname().'\\'.get_current_user().'\\'.auth()->user()->name }}</small>
         </h1>
       </section>
 

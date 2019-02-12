@@ -55,7 +55,7 @@ class PacienteController extends Controller
         $paciente->nombre = $request->get('nombre');
         $paciente->telefono = $request->get('telefono');
         $paciente->imagen = $request->get('imagen');
-        $paciente->created_by = $request->getHost();
+        $paciente->created_by = gethostname().'\\'.get_current_user().'\\'.auth()->user()->name;
 
         $paciente->save();
 
