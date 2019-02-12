@@ -196,7 +196,7 @@ desired effect
       <section class="content-header">
         <h1>
           Dashboard
-          <small>Home</small>
+          <small>Home {{request()->server('COMPUTERNAME')}}</small>
         </h1>
       </section>
 

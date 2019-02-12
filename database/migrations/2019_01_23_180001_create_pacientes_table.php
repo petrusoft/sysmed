@@ -41,12 +41,12 @@ class CreatePacientesTable extends Migration
             $table->string('familiar_parentesco')->nullable();
             $table->string('familiar_telefono')->nullable();
             $table->string('observacion')->nullable();
-            $table->string('created_by');
-            $table->string('updated_by');
-            $table->string('deleted_by');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->timestamp('rowversion');
+            $table->timestamp('rowversion')->useCurrent();
 
             $table->foreign('dni_id')->references('id')->on('dni');
         });

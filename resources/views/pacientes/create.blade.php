@@ -19,12 +19,20 @@
             </div>
             @endif
             <!-- form start -->
-            <form action="{{ route('shares.store') }}" method="POST" enctype="multipart/form-data" role="form">
+            <form action="{{ route('pacientes.store') }}" method="POST" enctype="multipart/form-data" role="form">
                 @csrf
                 <div class="box-body">
                     <div class="form-group">
                         <label for="codigo">Codigo</label>
                         <input type="number" class="form-control" name="codigo" placeholder="Ingrese el codigo">
+                    </div>
+                    <div class="form-group">
+                        <label for="dni_id">Documento</label>
+                        <select class="form-control" name="dni_id">
+                            @foreach ($dnis as $dni)
+                            <option value="{{ $dni->id }}">{{ $dni->nombre }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="numero">Numero</label>

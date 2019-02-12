@@ -17,12 +17,12 @@ class CreateDniTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->string('descripcion')->nullable();
-            $table->string('created_by');
-            $table->string('updated_by');
-            $table->string('deleted_by');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->timestamp('rowversion');
+            $table->timestamp('rowversion')->useCurrent();
         });
     }
 
