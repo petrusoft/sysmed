@@ -54,10 +54,19 @@ class PacienteController extends Controller
         $paciente->numero = $request->get('numero');
         $paciente->nombre = $request->get('nombre');
         $paciente->telefono = $request->get('telefono');
-        $paciente->imagen = $request->get('imagen');
         $paciente->created_by = gethostname().'\\'.get_current_user().'\\'.auth()->user()->name;
 
         $paciente->save();
+
+        // Actualizar y Redimencionar Imagen
+        if ($request->hasFile('imagen')) {
+            $filename = $request->file('imagen')->storeAs('uploads/images/pacientes', $paciente->id.'jpg');
+            Image::make($filename)->resize(150, 150, function($constraint) {
+                $constraint->aspectRatio();
+            })->save($filename);
+            $paciente->imagen = $filename;
+            $paciente->save();    
+        }
 
         return redirect()->route('pacientes.index')->with('success', 'Paciente agregado correctamente');
     }
@@ -102,8 +111,16 @@ class PacienteController extends Controller
         $paciente->numero = $request->get('numero');
         $paciente->nombre = $request->get('nombre');
         $paciente->telefono = $request->get('telefono');
-        $paciente->imagen = $request->file('imagen')->get;
-        $paciente->save();
+        $paciente->updated_by = gethostname().'\\'.get_current_user().'\\'.auth()->user()->name;
+        if ($request->hasFile('imagen')) {
+            $filename = $request->file('imagen')->storeAs('uploads/images/pacientes', $paciente->id.'jpg');
+            Image::make($filename)->resize(150, 150, function($constraint) {
+                $constraint->aspectRatio();
+            })->save($filename);
+            $paciente->imagen = $filename;
+        }
+        
+        $paciente->save();    
 
         return redirect()->route('pacientes.index')->with('success', 'Paciente actualizado correctamente');
     }
