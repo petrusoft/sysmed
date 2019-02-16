@@ -62,7 +62,7 @@ class PacienteController extends Controller
         if ($request->hasFile('imagen')) {
             $imagen = $request->file('imagen')->storeAs('public/uploads/images/pacientes', $paciente->id.'.jpg');
             $path = 'storage/uploads/images/pacientes/'.$paciente->id.'.jpg';
-            Image::make($request->file('imagen'))->resize(200, null, function($constraint) {
+            Image::make($request->file('imagen'))->resize(150, null, function($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
             })->save(storage_path('app/'.$imagen));

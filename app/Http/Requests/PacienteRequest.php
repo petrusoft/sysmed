@@ -37,7 +37,7 @@ class PacienteRequest extends FormRequest
             'numero' => $rule,
             'nombre' => 'required',
             'telefono' => 'required|numeric',
-            'imagen' => 'required|image|mimes:jpeg',
+            'imagen' => 'required|file|image|mimes:jpeg',
         ];
     }
 
@@ -53,8 +53,7 @@ class PacienteRequest extends FormRequest
             'codigo.numeric' => 'codigo debe ser numerico',
             'dni_id.required' => 'documento es requerido',
             'numero.required' => 'numero es requerido',
-            'numero.digits:10' => 'cedula debe contener 10 digitos',
-            'numero.digits:13' => 'ruc debe contener 13 digitos',
+            'numero.digits' => 'cedula debe contener :digits digitos',
             'telefono.required' => 'telefono es requerido',
             'telefono.numeric' => 'telefono debe ser numerico',
         ];
