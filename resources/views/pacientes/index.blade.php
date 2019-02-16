@@ -19,7 +19,7 @@
         @endif
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Pacientes</h3>
+            <h3 class="box-title">Pacientes</h3>
                 <a href="{{ route('pacientes.create') }}" class="btn btn-primary pull-right" role="button" aria-pressed="true">Nuevo</a>
             </div>
             <div class="box-header">
@@ -49,6 +49,7 @@
                         <th>Numero</th>
                         <th>Nombre</th>
                         <th>Telefono</th>
+                        <th>Imagen</th>
                         <th>Acciones</th>
                     </tr>
                     @forelse ($pacientes as $paciente)
@@ -58,6 +59,7 @@
                         <td style="vertical-align:middle">{{ $paciente->numero }}</td>
                         <td style="vertical-align:middle">{{ $paciente->nombre }}</td>
                         <td style="vertical-align:middle">{{ $paciente->telefono }}</td>
+                        <td style="vertical-align:middle"><img src="{{ asset($paciente->imagen) }}" alt=""></td>
                         <td>
                             <form action="{{ route('pacientes.destroy', $paciente->id) }}" method="POST">
                                 @csrf @method('DELETE')

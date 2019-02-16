@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Paciente;
 use App\Dni;
+use Image;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\PacienteRequest;
@@ -57,15 +58,16 @@ class PacienteController extends Controller
         $paciente->created_by = gethostname().'\\'.get_current_user().'\\'.auth()->user()->name;
 
         $paciente->save();
-
         // Actualizar y Redimencionar Imagen
         if ($request->hasFile('imagen')) {
-            $filename = $request->file('imagen')->storeAs('uploads/images/pacientes', $paciente->id.'jpg');
-            Image::make($filename)->resize(150, 150, function($constraint) {
+            $imagen = $request->file('imagen')->storeAs('public/uploads/images/pacientes', $paciente->id.'.jpg');
+            $path = 'storage/uploads/images/pacientes/'.$paciente->id.'.jpg';
+            Image::make($request->file('imagen'))->resize(200, null, function($constraint) {
                 $constraint->aspectRatio();
-            })->save($filename);
-            $paciente->imagen = $filename;
-            $paciente->save();    
+                $constraint->upsize();
+            })->save(storage_path('app/'.$imagen));
+            $paciente->imagen = $path;
+            $paciente->save();
         }
 
         return redirect()->route('pacientes.index')->with('success', 'Paciente agregado correctamente');
@@ -113,14 +115,14 @@ class PacienteController extends Controller
         $paciente->telefono = $request->get('telefono');
         $paciente->updated_by = gethostname().'\\'.get_current_user().'\\'.auth()->user()->name;
         if ($request->hasFile('imagen')) {
-            $filename = $request->file('imagen')->storeAs('uploads/images/pacientes', $paciente->id.'jpg');
+            $filename = $request->file('imagen')->storeAs('public/uploads/images/pacientes', $paciente->id.'.jpg');
             Image::make($filename)->resize(150, 150, function($constraint) {
                 $constraint->aspectRatio();
             })->save($filename);
             $paciente->imagen = $filename;
         }
-        
-        $paciente->save();    
+
+        $paciente->save();
 
         return redirect()->route('pacientes.index')->with('success', 'Paciente actualizado correctamente');
     }
