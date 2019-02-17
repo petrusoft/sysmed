@@ -24,27 +24,27 @@
                 <div class="box-body">
                     <div class="form-group">
                         <label for="codigo">Codigo</label>
-                        <input type="number" class="form-control" name="codigo" placeholder="Ingrese el codigo">
+                        <input type="number" class="form-control" name="codigo" value="{{ old('codigo') }}" placeholder="Ingrese el codigo">
                     </div>
                     <div class="form-group">
                         <label for="dni_id">Documento</label>
                         <select class="form-control" name="dni_id">
                             @foreach ($dnis as $dni)
-                            <option value="{{ $dni->id }}">{{ $dni->nombre }}</option>
+                            <option value="{{ $dni->id }}" {{ (old('dni_id')==$dni->id) ? 'selected' : ''}}>{{ $dni->nombre }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="numero">Numero</label>
-                        <input type="number" class="form-control" name="numero" placeholder="Ingrese el numero de documento">
+                        <input type="number" class="form-control" name="numero" value="{{ old('numero') }}" placeholder="Ingrese el numero de documento">
                     </div>
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control" name="nombre" placeholder="Ingrese el nombre">
+                        <input type="text" class="form-control" name="nombre" value="{{ old('nombre') }}" placeholder="Ingrese el nombre">
                     </div>
                     <div class="form-group">
                         <label for="telefono">Telefono</label>
-                        <input type="text" class="form-control" name="telefono" placeholder="Ingrese el telefono">
+                        <input type="text" class="form-control" name="telefono" value="{{ old('telefono') }}" placeholder="Ingrese el telefono">
                     </div>
                     <div lass="form-group">
                         <label for="imagen">Imagen</label>

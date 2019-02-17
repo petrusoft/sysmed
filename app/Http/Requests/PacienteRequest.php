@@ -24,20 +24,18 @@ class PacienteRequest extends FormRequest
     public function rules()
     {
         $rule='';
-
-        if ($this->dni_id === 1) {
+        if ($this->dni_id === '1') {
             $rule = 'required|digits:10';
-        } elseif ($this->dni_id === 2) {
+        } elseif ($this->dni_id === '2') {
             $rule = 'required|digits:13';
         }
-
         return [
-            'codigo' => 'required|numeric',
+            'codigo' => 'required|digits:10',
             'dni_id' => 'required',
             'numero' => $rule,
             'nombre' => 'required',
-            'telefono' => 'required|numeric',
-            'imagen' => 'required|file|image|mimes:jpeg',
+            'telefono' => 'nullable|numeric',
+            'imagen' => 'nullable|file|image|mimes:jpeg|max:2048',
         ];
     }
 
@@ -49,13 +47,14 @@ class PacienteRequest extends FormRequest
     public function messages()
     {
         return [
-            'codigo.required' => 'codigo es requerido',
-            'codigo.numeric' => 'codigo debe ser numerico',
-            'dni_id.required' => 'documento es requerido',
-            'numero.required' => 'numero es requerido',
-            'numero.digits' => 'cedula debe contener :digits digitos',
-            'telefono.required' => 'telefono es requerido',
-            'telefono.numeric' => 'telefono debe ser numerico',
+            'required' => ':attribute es requerido',
+            'numeric' => ':attribute debe ser numerico',
+            'digits' => ':attribute debe contener :digits digitos',
+            'file' => ':attribute no es un archivo valido',
+            'image' => ':attribute no es una imagen valida',
+            'mimes' => ':attribute no es del tipo .jpg',
+            'max' => ':attribute debe pesar maximo :max kilobytes',
+
         ];
     }
 
