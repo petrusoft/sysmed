@@ -24,9 +24,9 @@ class PacienteRequest extends FormRequest
     public function rules()
     {
         $rule='';
-        if ($this->dni_id === '1') {
+        if ($this->dni_id == '1') {
             $rule = 'required|digits:10';
-        } elseif ($this->dni_id === '2') {
+        } elseif ($this->dni_id == '2') {
             $rule = 'required|digits:13';
         }
         return [

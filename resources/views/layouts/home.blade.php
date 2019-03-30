@@ -196,7 +196,7 @@ desired effect
       <section class="content-header">
         <h1>
           Dashboard
-          <small>Home {{ gethostname().'\\'.get_current_user().'\\'.auth()->user()->name }}</small>
+          <small>Home</small>
         </h1>
       </section>
 
@@ -232,6 +232,11 @@ desired effect
     <script src="{{ asset('adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+    <!-- Sweet Alert -->
+    <script src="{{ asset('adminlte/bower_components/sweetalert/sweetalert.min.js') }}"></script>
+    <!-- Custom Scripts App -->
+    <script src="{{ asset('js/custom.js') }}"> </script>
+
 
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

@@ -7,14 +7,14 @@
             <p>{{ $message }}</p>
         </div>
         @endif
-        @if (Session::has('message'))
-        <div class="alert alert-info">
-            {{ Session::get('message') }}
-        </div>
-        @endif
-        @if(session()->get('success'))
-        <div class="alert alert-success">
-            {{ session()->get('success') }}
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <strong>Opps!</strong> Something went wrong<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
         @endif
         <div class="box">
@@ -52,7 +52,7 @@
                         <th>Imagen</th>
                         <th>Acciones</th>
                     </tr>
-                    @forelse ($pacientes as $paciente)
+                    @foreach ($pacientes as $paciente)
                     <tr>
                         <td style="vertical-align:middle">{{ $paciente->codigo }}</td>
                         <td style="vertical-align:middle">{{ $paciente->dni->nombre }}</td>
@@ -61,7 +61,7 @@
                         <td style="vertical-align:middle">{{ $paciente->telefono }}</td>
                         <td style="vertical-align:middle"><img src="{{ asset($paciente->imagen) }}" alt=""></td>
                         <td>
-                            <form action="{{ route('pacientes.destroy', $paciente->id) }}" method="POST">
+                            <form id="delete" action="{{ route('pacientes.destroy', $paciente->id) }}" method="POST">
                                 @csrf @method('DELETE')
                                 <a class="btn btn-info" href="{{ route('pacientes.show', $paciente->id) }}"><i class="fa fa-eye"></i></a>
                                 <a class="btn btn-primary" href="{{ route('pacientes.edit', $paciente->id) }}"><i class="fa fa-edit"></i></a>
@@ -69,19 +69,21 @@
                             </form>
                         </td>
                     </tr>
+                    @endforeach
+                    @if ($pacientes->total() > 0)
                     <tfoot>
                         <tr>
                             <td>{{ $pacientes->firstItem() }} al {{ $pacientes->lastItem() }} de {{ $pacientes->total() }} registros</td>
                             <td colspan="6" class="text-center">{{ $pacientes->appends(['sort' => 'id'])->links() }}</td>
                         </tr>
                     </tfoot>
-                    @empty
+                    @else
                     <tfoot>
                         <tr>
                             <th colspan="6" class="text-center">No existen registros</th>
                         </tr>
                     </tfoot>
-                    @endforelse
+                    @endif
                 </table>
             </div>
             <!-- /.box-body -->

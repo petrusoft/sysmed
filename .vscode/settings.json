@@ -1,4 +1,5 @@
 {
     "php.executablePath": "D:\\laragon\\bin\\php\\php-7.2.11-Win32-VC15-x64\\php.exe",
+    "php.validate.executablePath": "D:\\laragon\\bin\\php\\php-7.2.11-Win32-VC15-x64\\php.exe",
     "blade.format.enable": true
 }

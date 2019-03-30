@@ -22,7 +22,6 @@ class CreateDniTable extends Migration
             $table->string('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->timestamp('rowversion')->useCurrent();
         });
     }
 

@@ -48,7 +48,7 @@ class PacienteController extends Controller
      */
     public function store(PacienteRequest $request)
     {
-        // Paciente::create($request->all());
+        //Paciente::create($request->all());
         $paciente = new Paciente();
         $paciente->codigo = $request->get('codigo');
         $paciente->dni_id = $request->get('dni_id');
@@ -56,16 +56,14 @@ class PacienteController extends Controller
         $paciente->nombre = $request->get('nombre');
         $paciente->telefono = $request->get('telefono');
         $paciente->created_by = gethostname().'\\'.get_current_user().'\\'.auth()->user()->name;
-
         $paciente->save();
-        // Actualizar y Redimencionar Imagen
+        // Redimencionar y guardar imagen
         if ($request->hasFile('imagen')) {
-            $imagen = $request->file('imagen')->storeAs('public/uploads/images/pacientes', $paciente->id.'.jpg');
-            $path = 'storage/uploads/images/pacientes/'.$paciente->id.'.jpg';
+            $path = 'storage\\uploads\\images\\pacientes\\'.$paciente->id.'.jpg';
             Image::make($request->file('imagen'))->resize(150, null, function($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->save(storage_path('app/'.$imagen));
+            })->save(public_path($path));
             $paciente->imagen = $path;
             $paciente->save();
         }
@@ -82,7 +80,7 @@ class PacienteController extends Controller
     public function show(Paciente $paciente)
     {
         $paciente = Paciente::findOrFail($paciente->id);
-        return view('pacientes.show',compact('paciente'));
+        return view('pacientes.show', compact('paciente'));
     }
 
     /**
@@ -94,7 +92,8 @@ class PacienteController extends Controller
     public function edit(Paciente $paciente)
     {
         $paciente = Paciente::findOrFail($paciente->id);
-        return view('pacientes.edit',compact('paciente'));
+        $dnis = Dni::all();
+        return view('pacientes.edit',compact('paciente', 'dnis'));
     }
 
     /**
@@ -106,7 +105,7 @@ class PacienteController extends Controller
      */
     public function update(PacienteRequest $request, Paciente $paciente)
     {
-        // $paciente->update($request->all());
+        //$paciente->update($request->all());
         $paciente = Paciente::findOrFail($paciente->id);
         $paciente->codigo = $request->get('codigo');
         $paciente->dni_id = $request->get('dni_id');
@@ -114,12 +113,22 @@ class PacienteController extends Controller
         $paciente->nombre = $request->get('nombre');
         $paciente->telefono = $request->get('telefono');
         $paciente->updated_by = gethostname().'\\'.get_current_user().'\\'.auth()->user()->name;
+        // Redimencionar y actualizar imagen
         if ($request->hasFile('imagen')) {
-            $filename = $request->file('imagen')->storeAs('public/uploads/images/pacientes', $paciente->id.'.jpg');
-            Image::make($filename)->resize(150, 150, function($constraint) {
+            $path = 'storage\\uploads\\images\\pacientes\\'.$paciente->id.'.jpg';
+            Image::make($request->file('imagen'))->resize(150, null, function($constraint) {
                 $constraint->aspectRatio();
-            })->save($filename);
-            $paciente->imagen = $filename;
+                $constraint->upsize();
+            })->save(public_path($path));
+            $paciente->imagen = $path;
+            $paciente->save();
+        }
+        // Eliminar imagen
+        if ($request->get('eliminar')) {
+            if (file_exists(public_path($paciente->imagen))) {
+                unlink(public_path($paciente->imagen));
+                $paciente->imagen = '';
+            }
         }
 
         $paciente->save();
