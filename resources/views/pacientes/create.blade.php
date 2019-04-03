@@ -9,15 +9,7 @@
                 <h3 class="box-title">Nuevo Paciente</h3>
             </div>
             <!-- /.box-header -->
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
+    @include('layouts.partials.flash-messages')
             <!-- form start -->
             <form action="{{ route('pacientes.store') }}" method="POST" enctype="multipart/form-data" role="form">
                 @csrf

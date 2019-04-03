@@ -12,17 +12,17 @@ class DniTableSeeder extends Seeder
     public function run()
     {
         DB::table('dni')->insert([
-            'nombre' => 'Cedula',
+            'nombre' => 'CEDULA',
             'descripcion' => 'Documento de Identidad',
         ]);
 
         DB::table('dni')->insert([
-            'nombre' => 'Ruc',
+            'nombre' => 'RUC',
             'descripcion' => 'Registro unico de contribuyentes',
         ]);
 
         DB::table('dni')->insert([
-            'nombre' => 'Pasaporte',
+            'nombre' => 'PASAPORTE',
             'descripcion' => 'Documento con validez internacional',
         ]);
     }

@@ -235,7 +235,7 @@ desired effect
     <!-- Sweet Alert -->
     <script src="{{ asset('adminlte/bower_components/sweetalert/sweetalert.min.js') }}"></script>
     <!-- Custom Scripts App -->
-    <script src="{{ asset('js/custom.js') }}"> </script>
+    <script src="{{ asset('js/custom.js') }}"></script>
 
 
     <!-- Optionally, you can add Slimscroll and FastClick plugins.

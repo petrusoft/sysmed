@@ -2,24 +2,10 @@
 @section('content') @auth
 <div class="row">
     <div class="col-xs-12">
-        @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-        @endif
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <strong>Opps!</strong> Something went wrong<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
+    @include('layouts.partials.flash-messages')
         <div class="box">
             <div class="box-header">
-            <h3 class="box-title">Pacientes</h3>
+                <h3 class="box-title">Pacientes</h3>
                 <a href="{{ route('pacientes.create') }}" class="btn btn-primary pull-right" role="button" aria-pressed="true">Nuevo</a>
             </div>
             <div class="box-header">
@@ -61,7 +47,7 @@
                         <td style="vertical-align:middle">{{ $paciente->telefono }}</td>
                         <td style="vertical-align:middle"><img src="{{ asset($paciente->imagen) }}" alt=""></td>
                         <td>
-                            <form id="delete" action="{{ route('pacientes.destroy', $paciente->id) }}" method="POST">
+                            <form class="delete" action="{{ route('pacientes.destroy', $paciente->id) }}" method="POST">
                                 @csrf @method('DELETE')
                                 <a class="btn btn-info" href="{{ route('pacientes.show', $paciente->id) }}"><i class="fa fa-eye"></i></a>
                                 <a class="btn btn-primary" href="{{ route('pacientes.edit', $paciente->id) }}"><i class="fa fa-edit"></i></a>
@@ -69,8 +55,7 @@
                             </form>
                         </td>
                     </tr>
-                    @endforeach
-                    @if ($pacientes->total() > 0)
+                    @endforeach @if ($pacientes->total() > 0)
                     <tfoot>
                         <tr>
                             <td>{{ $pacientes->firstItem() }} al {{ $pacientes->lastItem() }} de {{ $pacientes->total() }} registros</td>
