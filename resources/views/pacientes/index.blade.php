@@ -46,7 +46,7 @@
                         <td style="vertical-align:middle">{{ $paciente->nombre }}</td>
                         <td style="vertical-align:middle">{{ $paciente->telefono }}</td>
                         <td style="vertical-align:middle"><img src="{{ asset($paciente->imagen) }}" alt=""></td>
-                        <td>
+                        <td style="vertical-align:middle">
                             <form class="delete" action="{{ route('pacientes.destroy', $paciente->id) }}" method="POST">
                                 @csrf @method('DELETE')
                                 <a class="btn btn-info" href="{{ route('pacientes.show', $paciente->id) }}"><i class="fa fa-eye"></i></a>
@@ -55,14 +55,8 @@
                             </form>
                         </td>
                     </tr>
-                    @endforeach @if ($pacientes->total() > 0)
-                    <tfoot>
-                        <tr>
-                            <td>{{ $pacientes->firstItem() }} al {{ $pacientes->lastItem() }} de {{ $pacientes->total() }} registros</td>
-                            <td colspan="6" class="text-center">{{ $pacientes->appends(['sort' => 'id'])->links() }}</td>
-                        </tr>
-                    </tfoot>
-                    @else
+                    @endforeach
+                    @if ($pacientes->total() <=0 )
                     <tfoot>
                         <tr>
                             <th colspan="6" class="text-center">No existen registros</th>
@@ -72,9 +66,15 @@
                 </table>
             </div>
             <!-- /.box-body -->
+            <div class="box-footer clearfix">
+                {{ $pacientes->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}
+                {{ $pacientes->firstItem() }} al {{ $pacientes->lastItem() }} de {{ $pacientes->total() }}
+            </div>
+            <!-- /.box-footer -->
         </div>
         <!-- /.box -->
     </div>
+    <!-- /.col-xs-12 -->
 </div>
 @endauth
 @endsection
